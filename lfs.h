@@ -9,12 +9,13 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <lfs_util.h>
+#include "lfs_util.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
 
 /// Version info ///
 
@@ -174,7 +175,7 @@ struct lfs_config {
     // are propogated to the user.
     int (*sync)(const struct lfs_config *c);
 
-#if LFS_THREADSAFE
+#ifdef LFS_THREADSAFE
     // Lock the underlying block device. Negative error codes
     // are propogated to the user.
     int (*lock)(const struct lfs_config *c);
@@ -656,6 +657,7 @@ int lfs_fs_traverse(lfs_t *lfs, int (*cb)(void*, lfs_block_t), void *data);
 // Returns a negative error code on failure.
 int lfs_migrate(lfs_t *lfs, const struct lfs_config *cfg);
 #endif
+
 
 #ifdef __cplusplus
 } /* extern "C" */
